@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Drayverlar - AppStore{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-hdd"></i> Drayverlar</h2>
+            <div class="text-muted">{{ drivers.paginator.count }} ta drayver topildi</div>
+        </div>
+        {% if drivers %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for driver in drivers %}
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            {% if driver.screenshot %}
+                            <img src="{{ driver.screenshot.url }}" alt="{{ driver.name }}" class="app-icon me-3">
+                            {% else %}
+                            <div class="app-icon me-3 bg-secondary d-flex align-items-center justify-content-center"><i class="fas fa-hdd text-white"></i></div>
+                            {% endif %}
+                            <div>
+                                <h6 class="card-title mb-1">{{ driver.name }}</h6>
+                                <small class="text-muted">{{ driver.developer }}</small>
+                            </div>
+                        </div>
+                        <p class="card-text">{{ driver.description|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="rating"><i class="fas fa-star"></i> <span>{{ driver.rating }}</span></div>
+                            <small class="text-muted">{{ driver.size }}</small>
+                        </div>
+                        <div class="mt-3">
+                            <a href="{% url 'drivers:driver_detail' driver.id %}" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Yuklab olish</a>
+                            <small class="text-muted ms-2">{{ driver.downloads }} yuklangan</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5"><i class="fas fa-search fa-3x text-muted mb-3"></i><h4>Drayver topilmadi</h4><p class="text-muted">Qidiruv natijasiga mos drayver mavjud emas.</p></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

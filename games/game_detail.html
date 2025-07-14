@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}{{ game.name }} - O'yin tafsilotlari{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    {% if game.icon %}
+                    <img src="{{ game.icon.url }}" alt="{{ game.name }}" class="app-icon me-3">
+                    {% else %}
+                    <div class="app-icon me-3 bg-secondary d-flex align-items-center justify-content-center"><i class="fas fa-gamepad text-white"></i></div>
+                    {% endif %}
+                    <div>
+                        <h3 class="mb-0">{{ game.name }}</h3>
+                        <small class="text-muted">{{ game.developer }}</small>
+                    </div>
+                </div>
+                <p>{{ game.description }}</p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Janr:</strong> {{ game.genre }}</li>
+                    <li class="list-group-item"><strong>Versiya:</strong> {{ game.version }}</li>
+                    <li class="list-group-item"><strong>Hajmi:</strong> {{ game.size }}</li>
+                    <li class="list-group-item"><strong>Yuklangan:</strong> {{ game.downloads }} marta</li>
+                    <li class="list-group-item"><strong>Reyting:</strong> {{ game.rating }}</li>
+                </ul>
+                <a href="{{ game.file.url }}" class="btn btn-success"><i class="fas fa-download"></i> Yuklab olish</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">O'xshash o'yinlar</div>
+            <ul class="list-group list-group-flush">
+                {% for related in related_games %}
+                <li class="list-group-item">
+                    <a href="{% url 'games:game_detail' related.id %}">{{ related.name }}</a>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">O'xshash o'yinlar yo'q</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 

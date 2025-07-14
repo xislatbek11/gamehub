@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}{{ driver.name }} - Drayver tafsilotlari{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    {% if driver.icon %}
+                    <img src="{{ driver.icon.url }}" alt="{{ driver.name }}" class="app-icon me-3">
+                    {% else %}
+                    <div class="app-icon me-3 bg-secondary d-flex align-items-center justify-content-center"><i class="fas fa-hdd text-white"></i></div>
+                    {% endif %}
+                    <div>
+                        <h3 class="mb-0">{{ driver.name }}</h3>
+                        <small class="text-muted">{{ driver.developer }}</small>
+                    </div>
+                </div>
+                <p>{{ driver.description }}</p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Qurilma turi:</strong> {{ driver.device_type }}</li>
+                    <li class="list-group-item"><strong>Ishlab chiqaruvchi:</strong> {{ driver.manufacturer }}</li>
+                    <li class="list-group-item"><strong>Versiya:</strong> {{ driver.version }}</li>
+                    <li class="list-group-item"><strong>Hajmi:</strong> {{ driver.size }}</li>
+                    <li class="list-group-item"><strong>Yuklangan:</strong> {{ driver.downloads }} marta</li>
+                    <li class="list-group-item"><strong>Reyting:</strong> {{ driver.rating }}</li>
+                </ul>
+                <a href="{{ driver.file.url }}" class="btn btn-success"><i class="fas fa-download"></i> Yuklab olish</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">O'xshash drayverlar</div>
+            <ul class="list-group list-group-flush">
+                {% for related in related_drivers %}
+                <li class="list-group-item">
+                    <a href="{% url 'drivers:driver_detail' related.id %}">{{ related.name }}</a>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">O'xshash drayverlar yo'q</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 

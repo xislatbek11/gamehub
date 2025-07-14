@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}{{ tool.name }} - Tizim dasturi tafsilotlari{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    {% if tool.icon %}
+                    <img src="{{ tool.icon.url }}" alt="{{ tool.name }}" class="app-icon me-3">
+                    {% else %}
+                    <div class="app-icon me-3 bg-secondary d-flex align-items-center justify-content-center"><i class="fas fa-tools text-white"></i></div>
+                    {% endif %}
+                    <div>
+                        <h3 class="mb-0">{{ tool.name }}</h3>
+                        <small class="text-muted">{{ tool.developer }}</small>
+                    </div>
+                </div>
+                <p>{{ tool.description }}</p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item"><strong>Kategoriya:</strong> {{ tool.category }}</li>
+                    <li class="list-group-item"><strong>Versiya:</strong> {{ tool.version }}</li>
+                    <li class="list-group-item"><strong>Hajmi:</strong> {{ tool.size }}</li>
+                    <li class="list-group-item"><strong>Yuklangan:</strong> {{ tool.downloads }} marta</li>
+                    <li class="list-group-item"><strong>Reyting:</strong> {{ tool.rating }}</li>
+                </ul>
+                <a href="{{ tool.file.url }}" class="btn btn-success"><i class="fas fa-download"></i> Yuklab olish</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">O'xshash dasturlar</div>
+            <ul class="list-group list-group-flush">
+                {% for related in related_tools %}
+                <li class="list-group-item">
+                    <a href="{% url 'system:system_detail' related.id %}">{{ related.name }}</a>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-muted">O'xshash dasturlar yo'q</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %} 

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AppStore - Ilovalar, O'yinlar, Tizim Dasturlari va Drayverlar{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        main.container {
+            flex: 1 0 auto;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .card {
+            transition: transform 0.2s;
+            height: 100%;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .rating {
+            color: #ffc107;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 0.7rem 0 0.5rem 0;
+            margin-top: 1.5rem;
+            font-size: 0.97rem;
+            flex-shrink: 0;
+        }
+        .search-box {
+            max-width: 400px;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'apps:app_list' %}">
+                <i class="fas fa-store"></i> AppStore
+                <span class="visually-hidden">Xislatbek Shomurodov</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'apps:app_list' %}">
+                            <i class="fas fa-mobile-alt"></i> Ilovalar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'games:game_list' %}">
+                            <i class="fas fa-gamepad"></i> O'yinlar
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'system:system_list' %}">
+                            <i class="fas fa-tools"></i> Tizim Dasturlari
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'drivers:driver_list' %}">
+                            <i class="fas fa-hdd"></i> Drayverlar
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Search Form -->
+                <form class="d-flex search-box" method="GET" action="{% url 'apps:app_list' %}">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Qidirish..." 
+                           value="{{ search_query|default:'' }}">
+                    <button class="btn btn-outline-light" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>AppStore</h5>
+                    <p>Eng yaxshi ilovalar, o'yinlar, tizim dasturlari va drayverlar</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Kategoriyalar</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'apps:app_list' %}" class="text-light">Ilovalar</a></li>
+                        <li><a href="{% url 'games:game_list' %}" class="text-light">O'yinlar</a></li>
+                        <li><a href="{% url 'system:system_list' %}" class="text-light">Tizim Dasturlari</a></li>
+                        <li><a href="{% url 'drivers:driver_list' %}" class="text-light">Drayverlar</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Bog'lanish</h5>
+                    <p><i class="fas fa-envelope"></i> info@appstore.uz</p>
+                    <p><i class="fas fa-phone"></i> +998 90 123 45 67</p>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2025 AppStore. Barcha huquqlar himoyalangan.
+                    <span class="visually-hidden">Xislatbek Shomurodov</span>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 
